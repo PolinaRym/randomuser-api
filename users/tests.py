@@ -3,6 +3,8 @@ import pytest
 from django.urls import reverse
 from unittest.mock import patch
 from .models import UserProfile
+from django.db.models.signals import post_migrate
+from django.dispatch import receiver
 
 # Create your tests here.
 
@@ -44,6 +46,9 @@ MOCK_API_RESPONSE = {
 
 @pytest.mark.django_db
 class TestUserProfile:
+    def setup_method(self):
+        UserProfile.objects.all().delete()
+
     def test_create_user_profile(self):
         """Тест создания пользователя"""
         user = UserProfile.objects.create(
@@ -66,9 +71,14 @@ class TestUserProfile:
 
 @pytest.mark.django_db
 class TestViews:
-    @patch('requests.get')
+    def setup_method(self):
+        UserProfile.objects.all().delete()
+
+    @patch('users.management.commands.load_random_users.requests.get')
     def test_load_random_users_command(self, mock_get):
         """Тест команды загрузки пользователей"""
+        # Отключаем сигнал post_migrate, чтобы избежать конфликта с автозагрузкой
+        post_migrate.receivers = []
         mock_get.return_value.json.return_value = MOCK_API_RESPONSE
         from django.core.management import call_command
         call_command('load_random_users')
