@@ -5,12 +5,48 @@
     <meta charset="UTF-8">
     <title>Пользователь {{ user.first_name }} {{ user.last_name }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-custom-secondary {
+            background-color: #636e72;
+            border-color: #636e72;
+            color: white;
+        }
+        .btn-custom-secondary:hover {
+            background-color: #4d5656;
+            border-color: #4d5656;
+            color: white;
+        }
+        .btn-custom-warning {
+            background-color: #00b894;
+            border-color: #00b894;
+            color: white;
+        }
+        .btn-custom-warning:hover {
+            background-color: #00a884;
+            border-color: #00a884;
+            color: white;
+        }
+        .card {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+        .card-title {
+            color: #2d3436;
+            font-weight: 600;
+        }
+        .card-text {
+            color: #636e72;
+        }
+        .card-text b {
+            color: #2d3436;
+        }
+    </style>
 </head>
 <body>
 <div class="container mt-4">
-    <a href="/" class="btn btn-secondary mb-3">Назад к списку</a>
+    <a href="/" class="btn btn-custom-secondary mb-3">Назад к списку</a>
     {% if random %}
-        <a href="/random/" class="btn btn-warning mb-3">Другой случайный</a>
+        <a href="/random/" class="btn btn-custom-warning mb-3">Другой случайный</a>
     {% endif %}
     <div class="card" style="max-width: 500px; margin: auto;">
         <div class="row g-0">

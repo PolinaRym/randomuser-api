@@ -29,7 +29,7 @@ venv\Scripts\activate     # для Windows
 
 2. Установите зависимости:
 ```bash
-pip install -r requirements.txt
+pip install django requests
 ```
 
 3. Примените миграции:
